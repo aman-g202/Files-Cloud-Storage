@@ -1,6 +1,6 @@
 {
   "name": "files-cloud-storage",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "This is npm package which exports the functions to upload file in GCP, AWS S3 and AZURE",
   "main": "index.js",
   "scripts": {
