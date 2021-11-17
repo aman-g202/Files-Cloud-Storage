@@ -12,6 +12,8 @@ npm i files-cloud-storage
 
 ## Usage Google Cloud Storage
 
+### To upload file
+
 ```
 const { GcpFileHelper } = require('files-cloud-storage');
 const path = require('path');
@@ -35,7 +37,29 @@ GcpFileHelper.uploadFile({filePath, destFileName, bucketName, gcpProjectId, gcpJ
 });
 ```
 
+### To generate signed url
+
+```
+const options = {
+    destFilePath: 'users/abc.png', // Stored file path - location from bucket - example - users/abc.png
+    bucketName: '<Bucket-Name>', // google cloud storage bucket in which action is peformed over file
+    actionType: 'write', // signed url usage type - example ('read' | 'write' | 'delete' | 'resumable')
+    expiry: Date.now() + 1000 * 60 * 30, // signed url expiration time - In ms from current time - type number | string | Date
+    gcpProjectId: '<Gcp-Project-Id>', // google cloud storage project id
+    gcpJsonFilePath: '<Gcp-Json-File-Path>', // google cloud storage json configuration file absolute path for connectivity
+    contentType: 'multipart/form-data', // content type of file, example multipart/form-data, image/png, csv/text etc
+};
+
+GcpFileHelper.getSignedUrl(options).then(response => {
+    console.log(response);
+}).catch(error => {
+    console.log(error);
+});
+```
+
 ## Usage Amazon Web Service S3 storage
+
+### To upload file
 
 ```
 const { AwsFileHelper } = require('files-cloud-storage');
@@ -58,7 +82,29 @@ AwsFileHelper.uploadFile({filePath, destFileName, bucketName, accessKeyId, secre
 });
 ```
 
+### To generate signed url
+
+```
+const options = {
+    destFilePath: 'users/abc.png', // Stored file path - i.e location from bucket - ex - users/abc.png
+    bucketName: '<Bucket-Name>', // aws s3 storage bucket in which action is peformed over file
+    actionType: 'putObject', // signed url usage type - example ('putObject' | 'getObject')
+    expiry: 30 * 60, // signed url expiration time - In sec - type number
+    accessKeyId: '<Access-Key-Id>', // aws s3 access key id
+    secretAccessKey: '<Secret-Access-Key>', // aws s3 secret access key
+    bucketRegion: '<Bucket-Region>' // aws region where bucket will be located, example - 'ap-south-1'
+}
+
+AwsFileHelper.getSignedUrl(options).then(res => {
+    console.log(res);
+}).catch(err => {
+    console.log(err);
+});
+```
+
 ## Usage Azure Storage
+
+### To upload file
 
 ```
 const { AzureFileHelper } = require('files-cloud-storage');
@@ -78,4 +124,24 @@ AzureFileHelper.uploadFile({filePath, destFileName, containerName, accountName, 
 });
 ```
 
-Thanks for using this, Looking forward for your contributions 😎 .
+### To generate signed url
+
+```
+const options = {
+    destFilePath: 'users/abc.png', // Stored file path - i.e location from container - ex - users/abc.png
+    containerName: '<Container-Name>', // container in which file gets saved
+    expiry: 30, // signed url expiration time - In minute - type number
+    actionType: "w", // signed url usage type - example ('w' | 'r' | 'wr' | 'racwdl') - pair of any alphabets among racwdl
+    accountName: '<Account-Name>', // account name of azure storage 
+    accountKey: '<Account-Key>', // account key of azure storage 
+    contentType: 'multipart/form-data' // content type of file, example multipart/form-data, image/png, csv/text etc
+};
+
+AzureFileHelper.getSignedUrl(options).then(res => {
+    console.log(res);
+}).catch(err => {
+    console.log(err);
+});
+```
+
+Thanks for using this, Looking forward to your contributions 😎 .
