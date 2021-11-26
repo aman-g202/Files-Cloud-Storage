@@ -57,6 +57,23 @@ GcpFileHelper.getSignedUrl(options).then(response => {
 });
 ```
 
+### To get downloadable url
+
+```
+const options = {
+    destFilePath: 'users/abc.png', // Stored file path - location from bucket - example - users/abc.png
+    bucketName: '<Bucket-Name>', // google cloud storage bucket in which action is peformed over file
+    gcpProjectId: '<Gcp-Project-Id>', // google cloud storage project id
+    gcpJsonFilePath: '<Gcp-Json-File-Path>', // google cloud storage json configuration file absolute path for connectivity
+};
+
+GcpFileHelper.getDownloadableUrl(options).then(response => {
+    console.log(response);
+}).catch(error => {
+    console.log(error);
+});
+```
+
 ## Usage Amazon Web Service S3 storage
 
 ### To upload file
@@ -102,6 +119,22 @@ AwsFileHelper.getSignedUrl(options).then(res => {
 });
 ```
 
+### To get downloadable url
+
+```
+const options = {
+    destFilePath: 'users/abc.png', // Stored file path - i.e location from bucket - ex - users/abc.png
+    bucketName: '<Bucket-Name>', // aws s3 storage bucket in which action is peformed over file
+    bucketRegion: '<Bucket-Region>' // aws region where bucket will be located, example - 'ap-south-1'
+}
+
+AwsFileHelper.getDownloadableUrl(options).then(response => {
+    console.log(response);
+}).catch(err => {
+    console.log(err);
+});
+```
+
 ## Usage Azure Storage
 
 ### To upload file
@@ -137,8 +170,27 @@ const options = {
     contentType: 'multipart/form-data' // content type of file, example multipart/form-data, image/png, csv/text etc
 };
 
-AzureFileHelper.getSignedUrl(options).then(res => {
-    console.log(res);
+AzureFileHelper.getSignedUrl(options).then(response => {
+    console.log(response);
+}).catch(err => {
+    console.log(err);
+});
+```
+
+### To get downloadable url
+
+```
+const options = {
+    destFilePath: 'users/abc.png', // Stored file path - i.e location from container - ex - users/abc.png
+    containerName: '<Container-Name>', // container in which file gets saved
+    expiry: 30, // signed url expiration time - In minute - type number
+    actionType: "w", // signed url usage type - example ('w' | 'r' | 'wr' | 'racwdl') - pair of any alphabets among racwdl
+    accountName: '<Account-Name>', // account name of azure storage 
+    accountKey: '<Account-Key>', // account key of azure storage
+};
+
+AzureFileHelper.getDownloadableUrl(options).then(response => {
+    console.log(response);
 }).catch(err => {
     console.log(err);
 });
