@@ -184,7 +184,7 @@ const options = {
     destFilePath: 'users/abc.png', // Stored file path - i.e location from container - ex - users/abc.png
     containerName: '<Container-Name>', // container in which file gets saved
     expiry: 30, // signed url expiration time - In minute - type number
-    actionType: "w", // signed url usage type - example ('w' | 'r' | 'wr' | 'racwdl') - pair of any alphabets among racwdl
+    actionType: "rw", // signed url usage type - example ('w' | 'r' | 'wr' | 'racwdl') - pair of any alphabets among racwdl
     accountName: '<Account-Name>', // account name of azure storage 
     accountKey: '<Account-Key>', // account key of azure storage
 };
